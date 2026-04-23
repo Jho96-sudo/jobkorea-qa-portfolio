@@ -1,9 +1,13 @@
 import pytest
+import os 
 from playwright.sync_api import sync_playwright
 
 BASE_URL = "https://www.saucedemo.com"
 USERNAME = "standard_user"
 PASSWORD = "secret_sauce"
+
+# CI 환경이면 headless=True, 로컬이면 headless=False
+IS_CI = os.environ.get("CI", "false").lower() == "true"
 
 @pytest.fixture(scope="function")
 def page():
@@ -13,7 +17,7 @@ def page():
     headless=True → 창 없이 백그라운드 실행
     """
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=IS_CI)
         context = browser.new_context()
         page = context.new_page()
         yield page
