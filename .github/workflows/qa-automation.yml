@@ -9,40 +9,55 @@ jobs:
     name: UI 자동화 (Playwright)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Python 설정
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: 패키지 설치
         run: pip install -r requirements.txt
+
       - name: Playwright 브라우저 설치
         run: playwright install chromium
+
+      - name: reports 폴더 생성
+        run: mkdir -p reports
+
       - name: UI 테스트 실행
-        run: pytest tests/ui/ -v --html=reports/ui_report.html
+        run: pytest tests/ui/ -v
+
       - name: 리포트 저장
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: ui-test-report
-          path: reports/ui_report.html
+          path: reports/
 
   api-test:
     name: API 자동화 (requests)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Python 설정
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: 패키지 설치
         run: pip install -r requirements.txt
+
+      - name: reports 폴더 생성
+        run: mkdir -p reports
+
       - name: API 테스트 실행
-        run: pytest tests/api/ -v --html=reports/api_report.html
+        run: pytest tests/api/ -v
+
       - name: 리포트 저장
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: api-test-report
-          path: reports/api_report.html
+          path: reports/
