@@ -1,0 +1,48 @@
+name: QA Automation Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ui-test:
+    name: UI 자동화 (Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Python 설정
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: 패키지 설치
+        run: pip install -r requirements.txt
+      - name: Playwright 브라우저 설치
+        run: playwright install chromium
+      - name: UI 테스트 실행
+        run: pytest tests/ui/ -v --html=reports/ui_report.html
+      - name: 리포트 저장
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: ui-test-report
+          path: reports/ui_report.html
+
+  api-test:
+    name: API 자동화 (requests)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Python 설정
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: 패키지 설치
+        run: pip install -r requirements.txt
+      - name: API 테스트 실행
+        run: pytest tests/api/ -v --html=reports/api_report.html
+      - name: 리포트 저장
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: api-test-report
+          path: reports/api_report.html
