@@ -1,5 +1,12 @@
 # 잡코리아(JobKorea) 채용공고 검색 기능 QA 포트폴리오
 
+![GitHub Actions](https://github.com/Jho96-sudo/jobkorea-qa-portfolio/actions/workflows/qa-automation.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![Playwright](https://img.shields.io/badge/Playwright-1.57.0-green?logo=playwright)
+![pytest](https://img.shields.io/badge/pytest-9.0.3-orange?logo=pytest)
+![JIRA](https://img.shields.io/badge/JIRA-Bug_Tickets-blue?logo=jira)
+![License](https://img.shields.io/badge/License-Portfolio-lightgrey)
+
 > 잡코리아 채용공고 검색 기능을 대상으로 수동 TC 설계·실행, JIRA 버그 등록,
 > SauceDemo UI 자동화 및 Restful-Booker API 자동화를 구현하고
 > GitHub Actions CI/CD 파이프라인을 구성한 QA 포트폴리오입니다.
